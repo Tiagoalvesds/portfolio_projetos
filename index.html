@@ -1,1 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio Espacial | Tiago Alves</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Biblioteca de animações -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Biblioteca para efeito de digitação -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <style>
+    /* Fundo espacial para toda a página */
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #000000, #0a0a2a, #000000);
+    }
+    
+    /* Efeito de viagem espacial com estrelas APENAS NA HERO SECTION */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    
+    .space {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      perspective: 800px;
+      overflow: hidden;
+    }
+    
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: starTravel linear infinite;
+    }
+    
+    /* Efeito de viagem através das estrelas - versão melhorada */
+    @keyframes starTravel {
+      0% {
+        transform: translateZ(0) scale(0.2);
+        opacity: 0;
+      }
+      5% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateZ(1000px) scale(2);
+        opacity: 0;
+      }
+    }
+    
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+    }
+    
+    /* Melhorar a legibilidade do texto sobre o fundo estelar */
+    .text-overlay {
+      background: rgba(3, 7, 18, 0.85);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    
+    .section-bg {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+    }
+    
+    /* Estilo para o texto estático - completamente separado */
+    .static-text-container {
+      margin: 1.5rem 0;
+      padding: 0;
+    }
+    
+    .static-text {
+      font-size: 1.125rem;
+      color: #D1D5DB;
+      max-width: 42rem;
+      margin: 0 auto;
+      line-height: 1.6;
+      text-align: center;
+    }
+    
+    /* Estilos para os cards do portfólio */
+    .portfolio-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .portfolio-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 200, 255, 0.15);
+    }
+    
+    .portfolio-image {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .portfolio-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .portfolio-card:hover .portfolio-overlay {
+      opacity: 1;
+    }
+    
+    .view-project {
+      color: white;
+      font-weight: bold;
+      background: rgba(6, 182, 212, 0.8);
+      padding: 8px 16px;
+      border-radius: 20px;
+      transform: translateY(10px);
+      transition: transform 0.3s ease;
+    }
+    
+    .portfolio-card:hover .view-project {
+      transform: translateY(0);
+    }
+    
+    /* Gradiente roxo lead para o card de auditoria */
+    .gradient-purple-lead {
+      background: linear-gradient(to right, #8B5CF6, #7C3AED);
+    }
+    
+    /* Seletor de idiomas */
+    .language-selector {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 10px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .language-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .language-btn:hover {
+      transform: scale(1.1);
+      border-color: rgba(6, 182, 212, 0.8);
+    }
+    
+    .language-btn.active {
+      border-color: #06b6d4;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+    }
+    
+    .flag {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    @media (min-width: 768px) {
+      .static-text {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body class="text-gray-100 font-sans">
+  <!-- Seletor de Idiomas -->
+  <div class="language-selector">
+    <div class="language-btn active" data-lang="pt">
+      <img src="https://flagcdn.com/w40/br.png" srcset="https://flagcdn.com/w80/br.png 2x" alt="Português" class="flag" title="Português">
+    </div>
+    <div class="language-btn" data-lang="en">
+      <img src="https://flagcdn.com/w40/us.png" srcset="https://flagcdn.com/w80/us.png 2x" alt="English" class="flag" title="English">
+    </div>
+    <div class="language-btn" data-lang="es">
+      <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" alt="Español" class="flag" title="Español">
+    </div>
+  </div>
 
+  <div class="content-wrapper">
+    <!-- Hero Section com fundo estelar -->
+    <section class="hero-section flex flex-col justify-center items-center text-center px-6">
+      <!-- Efeito de viagem espacial APENAS aqui -->
+      <div class="space" id="space"></div>
+      
+      <div class="text-overlay" data-aos="fade-in">
+        <h1 id="typed-text" class="text-4xl md:text-6xl font-bold text-cyan-400 mb-4"></h1>
+        
+        <!-- Container separado para o texto estático -->
+        <div class="static-text-container">
+          <div id="hero-text" class="static-text">
+            Ciência de Dados, Automação com Inteligência Artificial para negócios mais eficientes e escaláveis.
+          </div>
+        </div>
+        
+        <div class="flex gap-4 justify-center flex-wrap mt-6">
+          <a href="#portfolio" id="portfolio-btn" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 rounded-xl font-semibold shadow-lg transition">Veja meu Portfólio</a>
+          <a href="#contato" id="contact-btn" class="px-6 py-3 border border-cyan-500 hover:bg-cyan-500/20 rounded-xl font-semibold transition">Fale Comigo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sobre Mim -->
+    <section class="py-20 px-6">
+      <div class="max-w-5xl mx-auto text-center section-bg p-8" data-aos="fade-up">
+        <h2 id="about-title" class="text-3xl font-bold text-cyan-400 mb-6">Sobre Mim</h2>
+        <p id="about-text" class="text-gray-300 text-lg leading-relaxed">
+          Olá! sou <span class="font-semibold">Tiago Alves</span>, especialista financeiro com habilidades em Ciência de Dados, Automação e Inteligência Artificial. 
+          Ajudo empresas e pessoas a extrair valor dos dados, criar soluções inteligentes e automatizar processos para ganhar eficiência e escala.
+        </p>
+      </div>
+    </section>
+
+    <!-- Serviços -->
+    <section class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 id="services-title" class="text-3xl font-bold text-center text-cyan-400 mb-12" data-aos="fade-down">Serviços</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Ciência de Dados -->
+          <div class="p-6 bg-gray-800/90 rounded-2xl shadow-lg hover:scale-105 transition" data-aos="flip-left">
+            <h3 class="text-xl font-semibold text-cyan-300 mb-2"> <span class="service-title" data-key="data-science">Ciência de Dados</span></h3>
+            <p class="text-gray-400 service-desc" data-key="data-science-desc">Modelagem preditiva, dashboards, análises estatísticas e suporte à tomada de decisão.</p>
+          </div>
+          
+          <!-- Automação -->
+          <div class="p-6 bg-gray-800/90 rounded-2xl shadow-lg hover:scale-105 transition" data-aos="flip-left" data-aos-delay="150">
+            <h3 class="text-xl font-semibold text-cyan-300 mb-2"> <span class="service-title" data-key="automation">Automação R.P.A.</span></h3>
+            <p class="text-gray-400 service-desc" data-key="automation-desc">Criação de RPA, robôs de integração e fluxos inteligentes que economizam tempo e reduzem erros.</p>
+          </div>
+          
+          <!-- Inteligência Artificial -->
+          <div class="p-6 bg-gray-800/90 rounded-2xl shadow-lg hover:scale-105 transition" data-aos="flip-left" data-aos-delay="300">
+            <h3 class="text-xl font-semibold text-cyan-300 mb-2"> <span class="service-title" data-key="ai">Inteligência Artificial</span></h3>
+            <p class="text-gray-400 service-desc" data-key="ai-desc">Programação de IA, processamento de linguagem multimodal, visão computacional e modelos customizados para problemas reais.</p>
+          </div>
+          
+          <!-- Especialista Financeiro -->
+          <div class="p-6 bg-gray-800/90 rounded-2xl shadow-lg hover:scale-105 transition" data-aos="flip-left" data-aos-delay="450">
+            <h3 class="text-xl font-semibold text-cyan-300 mb-2"> <span class="service-title" data-key="finance">Especialista Financeiro</span></h3>
+            <p class="text-gray-400 service-desc" data-key="finance-desc">Experiência sólida em finanças e contabilidade, unindo análise financeira com poderosas ferramentas tecnológicas para resultados estratégicos.</p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfólio -->
+    <section id="portfolio" class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 id="portfolio-title" class="text-3xl font-bold text-center text-cyan-400 mb-12" data-aos="fade-up">Portfólio</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Inteligência Artificial -->
+          <a href="https://github.com/Tiagoalvesds/lab-natty-or-not" target="_blank" class="portfolio-card bg-gray-800/90 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-right">
+            <div class="portfolio-image" style="background-image: url('https://images.unsplash.com/photo-1739036868260-c26b292cd85d?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+              <div class="portfolio-overlay">
+                <span class="view-project" data-key="view-project">Ver Projeto</span>
+              </div>
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-semibold text-cyan-300 mb-2 portfolio-title" data-key="ai-portfolio">Inteligência Artificial</h3>
+              <p class="text-gray-400 text-sm portfolio-desc" data-key="ai-portfolio-desc">Soluções usando I.A, que vão desde o atendimento automatizado até soluções mais elaboradas de acordo com a necessidade da empresa.</p>
+            </div>
+          </a>
+          
+          <!-- Automação -->
+          <a href="https://github.com/Tiagoalvesds/robo_trader" target="_blank" class="portfolio-card bg-gray-800/90 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-up">
+            <div class="portfolio-image" style="background-image: url('https://plus.unsplash.com/premium_photo-1680608979589-e9349ed066d5?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+              <div class="portfolio-overlay">
+                <span class="view-project" data-key="view-project">Ver Projeto</span>
+              </div>
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-semibold text-cyan-300 mb-2 portfolio-title" data-key="automation-portfolio">Automação</h3>
+              <p class="text-gray-400 text-sm portfolio-desc" data-key="automation-portfolio-desc">Análises especializadas do mercado financeiro; Automações de operações com robô trader auxiliando as melhores decisões para o investidor.</p>
+            </div>
+          </a>
+          
+          <!-- Investimentos -->
+          <a href="https://github.com/Tiagoalvesds/analise_risco_carteira/" target="_blank" class="portfolio-card bg-gray-800/90 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-left">
+            <div class="portfolio-image" style="background-image: url('https://images.unsplash.com/photo-1738490686692-4481c14ca5de?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+              <div class="portfolio-overlay">
+                <span class="view-project" data-key="view-project">Ver Projeto</span>
+              </div>
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-semibold text-cyan-300 mb-2 portfolio-title" data-key="finance-portfolio">Analise de risco da carteira de Ações</h3>
+              <p class="text-gray-400 text-sm portfolio-desc" data-key="finance-portfolio-desc"> Uma análise de Risco de Carteira de Ações e como ela se comporta frente a critérios de risco e retorno.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Artigos Publicados -->
+    <section id="artigos" class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 id="articles-title" class="text-3xl font-bold text-center text-cyan-400 mb-12" data-aos="fade-up">Artigos Publicados</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Artigo 1 -->
+          <a href="https://www.linkedin.com/pulse/assistentes-virtuais-dualidade-da-ia-mundo-dos-neg%C3%B3cios-tiago-alves-ennwf/?trackingId=r7bM0KB9Q2GF4AvkwE7E3w%3D%3D" target="_blank" class="portfolio-card bg-gray-800/90 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-right">
+            <div class="portfolio-image" style="background-image: url('https://images-cdn.openxcell.com/wp-content/uploads/2024/11/26123116/What-is-an-AI-Chatbot_-1024x639.webp')">
+              <div class="portfolio-overlay">
+                <span class="view-project" data-key="read-article">Ler Artigo</span>
+              </div>
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-semibold text-cyan-300 mb-2 portfolio-title" data-key="article-1-title">Assistentes Virtuais</h3>
+              <p class="text-gray-400 text-sm portfolio-desc" data-key="article-1-desc">A Dualidade da IA no Mundo dos Negócios</p>
+            </div>
+          </a>
+          
+          <!-- Artigo 2 -->
+          <a href="https://www.linkedin.com/pulse/como-constru%C3%AD-meu-rob%C3%B4-trader-e-conquistei-liberdade-mercado-alves-mlyhf/" target="_blank" class="portfolio-card bg-gray-800/90 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-up">
+            <div class="portfolio-image" style="background-image: url('https://plus.unsplash.com/premium_photo-1733306583396-8621f2906a82?q=80&w=1228&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+              <div class="portfolio-overlay">
+                <span class="view-project" data-key="read-article">Ler Artigo</span>
+              </div>
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-semibold text-cyan-300 mb-2 portfolio-title" data-key="article-2-title">Robô Trader</h3>
+              <p class="text-gray-400 text-sm portfolio-desc" data-key="article-2-desc">Do zero à lucratividade: como desenvolvi um assistente com automações que analisa mercados, executa ordens e envia alertas 24h por dia.</p>
+            </div>
+          </a>
+          
+          <!-- Artigo 3 -->
+          <a href="https://www.linkedin.com/pulse/da-rotina-manual-%C3%A0-automa%C3%A7%C3%A3o-estrat%C3%A9gica-o-papel-do-rpa-tiago-alves-bsbcf/?trackingId=71x%2BoOwC90Xjfb%2Bksv9cxA%3D%3D" target="_blank" class="portfolio-card bg-gray-800/90 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-left">
+            <div class="portfolio-image" style="background-image: url('https://images.unsplash.com/photo-1504607798333-52a30db54a5d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+              <div class="portfolio-overlay">
+                <span class="view-project" data-key="read-article">Ler Artigo</span>
+              </div>
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-semibold text-cyan-300 mb-2 portfolio-title" data-key="article-3-title">Automação </h3>
+              <p class="text-gray-400 text-sm portfolio-desc" data-key="article-3-desc">O papel do RPA na contabilidade moderna.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="contato" class="py-20 px-6">
+      <div class="max-w-4xl mx-auto text-center section-bg p-8" data-aos="zoom-in">
+        <h2 id="cta-title" class="text-3xl font-bold text-cyan-400 mb-6">Pronto para transformar dados em resultados?</h2>
+        <p id="cta-text" class="text-gray-300 mb-8">Entre em contato e vamos conversar sobre como a Ciência de Dados e a IA podem impulsionar seu negócio.</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+          <a href="https://wa.me/5562982625925" target="_blank" class="px-6 py-3 bg-green-500 hover:bg-green-600 rounded-xl font-semibold shadow-lg transition">WhatsApp</a>
+          <a href="https://www.linkedin.com/in/tiagoalvesds" target="_blank" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-semibold shadow-lg transition">LinkedIn</a>
+          <a href="mailto:dstiagoalves@email.com" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 rounded-xl font-semibold shadow-lg transition">E-mail</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="py-6 text-center text-gray-300 text-sm">
+      <span id="footer-text">© 2025 Tiago Alves – Dados, Automação & IA</span>
+    </footer>
+  </div>
+
+  <!-- Scripts de Animação -->
+  <script>
+    // Inicializar animações de scroll
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    // Inicializar efeito de digitação APENAS para o título principal
+    const typedTexts = {
+      pt: [
+        "Transformo dados em decisões inteligentes", 
+        "Automação + I.A. para negócios escaláveis"
+      ],
+      en: [
+        "I transform data into smart decisions", 
+        "Automation + AI for scalable businesses"
+      ],
+      es: [
+        "Transformo datos en decisiones inteligentes", 
+        "Automatización + IA para negocios escalables"
+      ]
+    };
+    
+    let typed = new Typed("#typed-text", {
+      strings: typedTexts.pt,
+      typeSpeed: 50,
+      backSpeed: 30,
+      loop: true
+    });
+
+    // Criar efeito de viagem espacial com estrelas - VERSÃO CORRIGIDA
+    const space = document.getElementById('space');
+    const starCount = 150; // Número reduzido para melhor performance
+    
+    // Criar estrelas com tempos de animação variados
+    function createStars() {
+      for (let i = 0; i < starCount; i++) {
+        createStar(i);
+      }
+    }
+    
+    function createStar(index) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      
+      // Tamanho aleatório entre 1-3px
+      const size = Math.random() * 2 + 1;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      
+      // Posição aleatória
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      
+      // Brilho aleatório
+      const brightness = Math.random() * 0.7 + 0.3;
+      star.style.opacity = '0'; // Iniciar invisível
+      
+      // Duração de animação variada entre 8-12 segundos
+      const duration = 8 + Math.random() * 4;
+      star.style.animationDuration = `${duration}s`;
+      
+      // Delay inicial aleatório para evitar sincronização
+      const initialDelay = Math.random() * duration;
+      star.style.animationDelay = `-${initialDelay}s`;
+      
+      space.appendChild(star);
+    }
+    
+    // Inicializar as estrelas
+    createStars();
+
+    // Dicionário de traduções
+const translations = {
+  pt: {
+    "hero-text": "Ciência de Dados, Automação com Inteligência Artificial para negócios mais eficientes e escaláveis.",
+    "portfolio-btn": "Veja meu Portfólio",
+    "contact-btn": "Fale Comigo",
+    "about-title": "Sobre Mim",
+    "about-text": "Olá! sou <span class='font-semibold'>Tiago Alves</span>, especialista financeiro com habilidades em Ciência de Dados, Automação e Inteligência Artificial. Ajudo empresas e pessoas a extrair valor dos dados, criar soluções inteligentes e automatizar processos para ganhar eficiência e escala.",
+    "services-title": "Serviços",
+    "data-science": "Ciência de Dados",
+    "data-science-desc": "Modelagem preditiva, dashboards, análises estatísticas e suporte à tomada de decisão.",
+    "automation": "Automação R.P.A.",
+    "automation-desc": "Criação de RPA, robôs de integração e fluxos inteligentes que economizam tempo e reduzem erros.",
+    "ai": "Inteligência Artificial",
+    "ai-desc": "Chat com I.A., processamento de linguagem multimodal, visão computacional e modelos customizados para problemas reais.",
+    "finance": "Especialista Financeiro",
+    "finance-desc": "Experiência sólida em finanças e contabilidade, unindo análise financeira com poderosas ferramentas tecnológicas para resultados estratégicos.",
+    "portfolio-title": "Portfólio",
+    "articles-title": "Artigos Publicados",
+    "view-project": "Ver Projeto",
+    "read-article": "Ler Artigo",
+    "ai-portfolio": "Inteligência Artificial",
+    "ai-portfolio-desc": "Soluções usando I.A, que vão desde o atendimento automatizado via WhatsApp até soluções mais elaboradas de acordo com a necessidade da empresa.",
+    "automation-portfolio": "Automação",
+    "automation-portfolio-desc": "Análises especializadas do mercado financeiro; Automações de operações com robô trader auxiliando as melhores decisões para o investidor.",
+    "finance-portfolio": "Finanças e Contabilidade",
+    "finance-portfolio-desc": "Cálculos tributários; Análises de balanços; Auditorias; Controle Orçamentário. Tudo isso, para facilitar a vida do empresário.",
+    "article-1-title": "Assistentes Virtuais",
+    "article-1-desc": "A Dualidade da IA no Mundo dos Negócios",
+    "article-2-title": "Robô Trader",
+    "article-2-desc": "Do zero à lucratividade: como desenvolvi um assistente com automações que analisa mercados, executa ordens e envia alertas 24h por dia.",
+    "article-3-title": "Automação",
+    "article-3-desc": "O papel do RPA na contabilidade moderna.",
+    "cta-title": "Pronto para transformar dados em resultados?",
+    "cta-text": "Entre em contato e vamos conversar sobre como a Ciência de Dados e a IA podem impulsionar seu negócio.",
+    "footer-text": "© 2025 Tiago Alves – Dados, Automação & IA"
+  },
+  en: {
+    "hero-text": "Data Science, Artificial Intelligence Automation for more efficient and scalable businesses.",
+    "portfolio-btn": "View My Portfolio",
+    "contact-btn": "Contact Me",
+    "about-title": "About Me",
+    "about-text": "Hello! I am <span class='font-semibold'>Tiago Alves</span>, a financial specialist with skills in Data Science, Automation, and Artificial Intelligence. I help companies and people extract value from data, create smart solutions, and automate processes to gain efficiency and scale.",
+    "services-title": "Services",
+    "data-science": "Data Science",
+    "data-science-desc": "Predictive modeling, dashboards, statistical analysis, and decision-making support.",
+    "automation": "R.P.A. Automation",
+    "automation-desc": "Creation of RPA, integration bots, and intelligent workflows that save time and reduce errors.",
+    "ai": "Artificial Intelligence",
+    "ai-desc": "AI programming, multimodal language processing, computer vision, and customized models for real-world problems.",
+    "finance": "Financial Specialist",
+    "finance-desc": "Solid experience in finance and accounting, combining financial analysis with powerful technological tools for strategic results.",
+    "portfolio-title": "Portfolio",
+    "articles-title": "Published Articles",
+    "view-project": "View Project",
+    "read-article": "Read Article",
+    "ai-portfolio": "Artificial Intelligence",
+    "ai-portfolio-desc": "Solutions using AI, ranging from automated customer service via WhatsApp to more advanced solutions tailored to business needs.",
+    "automation-portfolio": "Automation",
+    "automation-portfolio-desc": "Specialized financial market analysis; trading bot automations supporting better investor decisions.",
+    "finance-portfolio": "Finance and Accounting",
+    "finance-portfolio-desc": "Tax calculations; Balance sheet analysis; Audits; Budget control. All to make entrepreneurs’ lives easier.",
+    "article-1-title": "Virtual Assistants",
+    "article-1-desc": "The Duality of AI in Business",
+    "article-2-title": "Trading Bot",
+    "article-2-desc": "From scratch to profitability: how I built an automated assistant that analyzes markets, executes orders, and sends alerts 24/7.",
+    "article-3-title": "Automation",
+    "article-3-desc": "The role of RPA in modern accounting.",
+    "cta-title": "Ready to turn data into results?",
+    "cta-text": "Get in touch and let’s talk about how Data Science and AI can boost your business.",
+    "footer-text": "© 2025 Tiago Alves – Data, Automation & AI"
+  },
+  es: {
+    "hero-text": "Ciencia de Datos, Automatización con Inteligencia Artificial para negocios más eficientes y escalables.",
+    "portfolio-btn": "Ver Mi Portafolio",
+    "contact-btn": "Contáctame",
+    "about-title": "Sobre Mí",
+    "about-text": "¡Hola! Soy <span class='font-semibold'>Tiago Alves</span>, especialista financiero con habilidades en Ciencia de Datos, Automatización e Inteligencia Artificial. Ayudo a empresas y personas a extraer valor de los datos, crear soluciones inteligentes y automatizar procesos para ganar eficiencia y escala.",
+    "services-title": "Servicios",
+    "data-science": "Ciencia de Datos",
+    "data-science-desc": "Modelado predictivo, tableros, análisis estadísticos y apoyo a la toma de decisiones.",
+    "automation": "Automatización R.P.A.",
+    "automation-desc": "Creación de RPA, bots de integración y flujos inteligentes que ahorran tiempo y reducen errores.",
+    "ai": "Inteligencia Artificial",
+    "ai-desc": "Programación de IA, procesamiento de lenguaje multimodal, visión por computadora y modelos personalizados para problemas reales.",
+    "finance": "Especialista Financiero",
+    "finance-desc": "Amplia experiencia en finanzas y contabilidad, combinando análisis financiero con potentes herramientas tecnológicas para resultados estratégicos.",
+    "portfolio-title": "Portafolio",
+    "articles-title": "Artículos Publicados",
+    "view-project": "Ver Proyecto",
+    "read-article": "Leer Artículo",
+    "ai-portfolio": "Inteligencia Artificial",
+    "ai-portfolio-desc": "Soluciones con IA, desde atención automatizada por WhatsApp hasta desarrollos avanzados según la necesidad de la empresa.",
+    "automation-portfolio": "Automatización",
+    "automation-portfolio-desc": "Análisis especializados del mercado financiero; automatizaciones de operaciones con bots de trading que apoyan mejores decisiones para el inversionista.",
+    "finance-portfolio": "Finanzas y Contabilidad",
+    "finance-portfolio-desc": "Cálculos tributarios; análisis de balances; auditorías; control presupuestario. Todo para facilitar la vida del empresario.",
+    "article-1-title": "Asistentes Virtuales",
+    "article-1-desc": "La Dualidad de la IA en el Mundo de los Negocios",
+    "article-2-title": "Robot Trader",
+    "article-2-desc": "De cero a la rentabilidad: cómo desarrollé un asistente con automatizaciones que analiza mercados, ejecuta órdenes y envía alertas 24/7.",
+    "article-3-title": "Automatización",
+    "article-3-desc": "El papel del RPA en la contabilidad moderna.",
+    "cta-title": "¿Listo para transformar datos en resultados?",
+    "cta-text": "Contáctame y conversemos sobre cómo la Ciencia de Datos y la IA pueden impulsar tu negocio.",
+    "footer-text": "© 2025 Tiago Alves – Datos, Automatización & IA"
+  }
+};
+
+
+    // Funcionalidade do seletor de idiomas
+    document.addEventListener('DOMContentLoaded', function() {
+      const languageButtons = document.querySelectorAll('.language-btn');
+      
+      languageButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const lang = this.getAttribute('data-lang');
+          
+          // Remover a classe ativa de todos os botões
+          languageButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Adicionar a classe ativa ao botão clicado
+          this.classList.add('active');
+          
+          // Alterar o idioma da página
+          changeLanguage(lang);
+        });
+      });
+      
+      function changeLanguage(lang) {
+        // Atualizar o atributo lang do HTML
+        document.documentElement.lang = lang;
+        
+        // Atualizar o texto digitado
+        typed.destroy();
+        typed = new Typed("#typed-text", {
+          strings: typedTexts[lang],
+          typeSpeed: 50,
+          backSpeed: 30,
+          loop: true
+        });
+        
+        // Atualizar todos os textos com data-key
+        const elements = document.querySelectorAll('[data-key]');
+        elements.forEach(element => {
+          const key = element.getAttribute('data-key');
+          if (translations[lang][key]) {
+            if (element.classList.contains('service-desc') || 
+                element.classList.contains('portfolio-desc') || 
+                element.classList.contains('static-text')) {
+              element.innerHTML = translations[lang][key];
+            } else {
+              element.textContent = translations[lang][key];
+            }
+          }
+        });
+        
+        // Atualizar textos sem data-key
+        document.getElementById('hero-text').textContent = translations[lang]['hero-text'];
+        document.getElementById('portfolio-btn').textContent = translations[lang]['portfolio-btn'];
+        document.getElementById('contact-btn').textContent = translations[lang]['contact-btn'];
+        document.getElementById('about-title').textContent = translations[lang]['about-title'];
+        document.getElementById('about-text').innerHTML = translations[lang]['about-text'];
+        document.getElementById('services-title').textContent = translations[lang]['services-title'];
+        document.getElementById('portfolio-title').textContent = translations[lang]['portfolio-title'];
+        document.getElementById('articles-title').textContent = translations[lang]['articles-title'];
+        document.getElementById('cta-title').textContent = translations[lang]['cta-title'];
+        document.getElementById('cta-text').textContent = translations[lang]['cta-text'];
+        document.getElementById('footer-text').textContent = translations[lang]['footer-text'];
+      }
+    });
+  </script>
+</body>
+</html>
