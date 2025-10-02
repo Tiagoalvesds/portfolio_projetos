@@ -10,6 +10,8 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <!-- Biblioteca para efeito de digitação -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <!-- Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* Fundo espacial para toda a página */
     body {
@@ -198,6 +200,73 @@
       object-fit: cover;
     }
     
+    /* Estilos para o card Sobre Mim */
+    .about-card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+      border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+    
+    .about-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(6, 182, 212, 0.2);
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+    
+    .profile-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #06b6d4;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+      transition: all 0.3s ease;
+    }
+    
+    .profile-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.7);
+    }
+    
+    .skill-tag {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.2);
+      color: #06b6d4;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin: 5px;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .skill-tag:hover {
+      background: rgba(6, 182, 212, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(6, 182, 212, 0.1);
+      color: #06b6d4;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+    
+    .social-icon:hover {
+      background: rgba(6, 182, 212, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+    }
+    
     @media (min-width: 768px) {
       .static-text {
         font-size: 1.25rem;
@@ -244,12 +313,88 @@
 
     <!-- Sobre Mim -->
     <section class="py-20 px-6">
-      <div class="max-w-5xl mx-auto text-center section-bg p-8" data-aos="fade-up">
-        <h2 id="about-title" class="text-3xl font-bold text-cyan-400 mb-6">Sobre Mim</h2>
-        <p id="about-text" class="text-gray-300 text-lg leading-relaxed">
-          Olá! sou <span class="font-semibold">Tiago Alves</span>, especialista financeiro com habilidades em Ciência de Dados, Automação e Inteligência Artificial. 
-          Ajudo empresas e pessoas a extrair valor dos dados, criar soluções inteligentes e automatizar processos para ganhar eficiência e escala.
-        </p>
+      <div class="max-w-6xl mx-auto">
+        <h2 id="about-title" class="text-3xl font-bold text-center text-cyan-400 mb-12" data-aos="fade-down">Sobre Mim</h2>
+        
+        <div class="about-card p-8" data-aos="fade-up">
+          <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+            <!-- Foto de perfil -->
+            <div class="flex-shrink-0 text-center" data-aos="zoom-in" data-aos-delay="200">
+              <img 
+                src="https://raw.githubusercontent.com/Tiagoalvesds/portfolio_projetos/c0d71579271c0e66f5b46d7dd1ec7b64a0f53033/me_ia1.png" 
+                alt="Tiago Alves" 
+                class="profile-image mx-auto"
+              >
+              <h3 class="text-xl font-bold mt-4 text-cyan-300">Tiago Alves</h3>
+              <p class="text-gray-400 mt-1">Especialista em Dados & IA</p>
+              
+              <!-- Redes Sociais -->
+              <div class="flex justify-center gap-3 mt-4">
+                <a href="https://www.linkedin.com/in/tiagoalvesds" target="_blank" class="social-icon">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/Tiagoalvesds" target="_blank" class="social-icon">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a href="https://wa.me/5562982625925" target="_blank" class="social-icon">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+              </div>
+            </div>
+            
+            <!-- Conteúdo textual -->
+            <div class="flex-grow">
+              <div class="mb-6">
+                <h3 class="text-2xl font-bold text-cyan-400 mb-4" data-key="journey-title">Minha Jornada</h3>
+                <p id="about-text" class="text-gray-300 leading-relaxed" data-key="journey-text">
+                  Olá! Sou <span class="font-semibold text-cyan-300">Tiago Alves</span>, um profissional com formação em Ciências Contábeis e pós-graduação em Controladoria e Finanças, 
+                  que encontrou na tecnologia a chave para transformar processos e gerar valor. 
+                  <br><br>
+                  Minha trajetória une expertise financeira com habilidades avançadas em 
+                  <span class="text-cyan-300">Ciência de Dados, Automação e Inteligência Artificial</span>. 
+                  Ajudo empresas e pessoas a extrair insights valiosos dos dados, criar soluções inteligentes 
+                  e automatizar processos para ganhar eficiência e escala.
+                </p>
+              </div>
+              
+              <!-- Habilidades -->
+              <div class="mb-6">
+                <h4 class="text-xl font-semibold text-cyan-300 mb-3" data-key="skills-title">Habilidades & Competências</h4>
+                <div class="flex flex-wrap">
+                  <span class="skill-tag">Python</span>
+                  <span class="skill-tag">Machine Learning</span>
+                  <span class="skill-tag">Análise de Dados</span>
+                  <span class="skill-tag">RPA</span>
+                  <span class="skill-tag">SQL</span>
+                  <span class="skill-tag">Power BI</span>
+                  <span class="skill-tag">IA Generativa</span>
+                  <span class="skill-tag">Análise Financeira</span>
+                  <span class="skill-tag">Automação</span>
+                  <span class="skill-tag">Dashboarding</span>
+                </div>
+              </div>
+              
+              <!-- Experiência -->
+              <div>
+                <h4 class="text-xl font-semibold text-cyan-300 mb-3" data-key="experience-title">Experiência & Formação</h4>
+                <ul class="text-gray-300 space-y-2">
+                  <li class="flex items-start">
+                    <i class="fas fa-graduation-cap text-cyan-400 mt-1 mr-3"></i>
+                    <span data-key="education-item">Graduação em Ciências Contábeis & Pós em Controladoria e Finanças</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-chart-line text-cyan-400 mt-1 mr-3"></i>
+                    <span data-key="experience-item">Especialista Financeiro com +17 anos de experiência</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-robot text-cyan-400 mt-1 mr-3"></i>
+                    <span data-key="ai-item">Desenvolvimento de soluções com IA e Automação</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -504,7 +649,15 @@
         "article-3-desc": "O papel do RPA na contabilidade moderna.",
         "cta-title": "Pronto para transformar dados em resultados?",
         "cta-text": "Entre em contato e vamos conversar sobre como a Ciência de Dados e a IA podem impulsionar seu negócio.",
-        "footer-text": "© 2025 Tiago Alves – Dados, Automação & IA"
+        "footer-text": "© 2025 Tiago Alves – Dados, Automação & IA",
+        // Novas traduções para a seção Sobre Mim
+        "journey-title": "Minha Jornada",
+        "journey-text": "Olá! Sou <span class='font-semibold text-cyan-300'>Tiago Alves</span>, um profissional com formação em Ciências Contábeis e pós-graduação em Controladoria e Finanças, que encontrou na tecnologia a chave para transformar processos e gerar valor. <br><br>Minha trajetória une expertise financeira com habilidades avançadas em <span class='text-cyan-300'>Ciência de Dados, Automação e Inteligência Artificial</span>. Ajudo empresas e pessoas a extrair insights valiosos dos dados, criar soluções inteligentes e automatizar processos para ganhar eficiência e escala.",
+        "skills-title": "Habilidades & Competências",
+        "experience-title": "Experiência & Formação",
+        "education-item": "Graduação em Ciências Contábeis & Pós em Controladoria e Finanças",
+        "experience-item": "Especialista Financeiro com +17 anos de experiência",
+        "ai-item": "Desenvolvimento de soluções com IA e Automação"
       },
       en: {
         "hero-text": "Data Science, Artificial Intelligence Automation for more efficient and scalable businesses.",
@@ -539,7 +692,15 @@
         "article-3-desc": "The role of RPA in modern accounting.",
         "cta-title": "Ready to turn data into results?",
         "cta-text": "Get in touch and let's talk about how Data Science and AI can boost your business.",
-        "footer-text": "© 2025 Tiago Alves – Data, Automation & AI"
+        "footer-text": "© 2025 Tiago Alves – Data, Automation & AI",
+        // Novas traduções para a seção Sobre Mim
+        "journey-title": "My Journey",
+        "journey-text": "Hello! I am <span class='font-semibold text-cyan-300'>Tiago Alves</span>, a professional with a degree in Accounting Sciences and a postgraduate degree in Controllership and Finance, who found in technology the key to transforming processes and generating value. <br><br>My journey combines financial expertise with advanced skills in <span class='text-cyan-300'>Data Science, Automation and Artificial Intelligence</span>. I help companies and people extract valuable insights from data, create smart solutions and automate processes to gain efficiency and scale.",
+        "skills-title": "Skills & Competencies",
+        "experience-title": "Experience & Education",
+        "education-item": "Bachelor's in Accounting Sciences & Postgraduate in Controllership and Finance",
+        "experience-item": "Financial Specialist with +17 years of experience",
+        "ai-item": "Development of solutions with AI and Automation"
       },
       es: {
         "hero-text": "Ciencia de Datos, Automatización con Inteligencia Artificial para negocios más eficientes y escalables.",
@@ -574,7 +735,15 @@
         "article-3-desc": "El papel del RPA en la contabilidad moderna.",
         "cta-title": "¿Listo para transformar datos en resultados?",
         "cta-text": "Contáctame y conversemos sobre cómo la Ciencia de Datos y la IA pueden impulsar tu negocio.",
-        "footer-text": "© 2025 Tiago Alves – Datos, Automatización & IA"
+        "footer-text": "© 2025 Tiago Alves – Datos, Automatización & IA",
+        // Novas traduções para a seção Sobre Mim
+        "journey-title": "Mi Trayectoria",
+        "journey-text": "¡Hola! Soy <span class='font-semibold text-cyan-300'>Tiago Alves</span>, un profesional con formación en Ciencias Contables y posgrado en Controladoría y Finanzas, que encontró en la tecnología la clave para transformar procesos y generar valor. <br><br>Mi trayectoria une experiencia financiera con habilidades avanzadas en <span class='text-cyan-300'>Ciencia de Datos, Automatización e Inteligencia Artificial</span>. Ayudo a empresas y personas a extraer insights valiosos de los datos, crear soluciones inteligentes y automatizar procesos para ganar eficiencia y escala.",
+        "skills-title": "Habilidades & Competencias",
+        "experience-title": "Experiencia & Formación",
+        "education-item": "Graduación en Ciencias Contables & Posgrado en Controladoría y Finanzas",
+        "experience-item": "Especialista Financiero con +17 años de experiencia",
+        "ai-item": "Desarrollo de soluciones con IA y Automatización"
       }
     };
 
