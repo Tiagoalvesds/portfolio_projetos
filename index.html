@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfólio Espacial | Tiago Alves</title>
+  <title>Portfólio | Tiago Alves</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Biblioteca de animações -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -44,23 +44,24 @@
       border-radius: 50%;
       opacity: 0;
       animation: starTravel linear infinite;
+      will-change: transform, opacity; /* Otimiza a animação */
     }
     
-    /* Efeito de viagem através das estrelas - versão melhorada */
+    /* Efeito de viagem através das estrelas - versão corrigida SEM PISCAR */
     @keyframes starTravel {
       0% {
-        transform: translateZ(0) scale(0.2);
-        opacity: 0;
+        transform: translateZ(0) scale(0.1);
+        opacity: 0; /* Começa totalmente invisível */
       }
-      5% {
-        opacity: 1;
+      10% {
+        opacity: 1; /* Aparece gradualmente */
       }
-      90% {
-        opacity: 1;
+      80% {
+        opacity: 1; /* Mantém visível */
       }
       100% {
-        transform: translateZ(1000px) scale(2);
-        opacity: 0;
+        transform: translateZ(1000px) scale(1.5);
+        opacity: 0; /* Some gradualmente */
       }
     }
     
@@ -430,9 +431,9 @@
       loop: true
     });
 
-    // Criar efeito de viagem espacial com estrelas - VERSÃO CORRIGIDA
+    // Criar efeito de viagem espacial com estrelas - VERSÃO CORRIGIDA SEM PISCAR
     const space = document.getElementById('space');
-    const starCount = 150; // Número reduzido para melhor performance
+    const starCount = 80; // Número reduzido para melhor performance
     
     // Criar estrelas com tempos de animação variados
     function createStars() {
@@ -445,8 +446,8 @@
       const star = document.createElement('div');
       star.classList.add('star');
       
-      // Tamanho aleatório entre 1-3px
-      const size = Math.random() * 2 + 1;
+      // Tamanho aleatório entre 1-2.5px (menor para menos flicker)
+      const size = Math.random() * 1.5 + 1;
       star.style.width = `${size}px`;
       star.style.height = `${size}px`;
       
@@ -454,17 +455,13 @@
       star.style.left = `${Math.random() * 100}%`;
       star.style.top = `${Math.random() * 100}%`;
       
-      // Brilho aleatório
-      const brightness = Math.random() * 0.7 + 0.3;
-      star.style.opacity = '0'; // Iniciar invisível
-      
-      // Duração de animação variada entre 8-12 segundos
-      const duration = 8 + Math.random() * 4;
+      // Duração de animação mais longa e variada (10-18 segundos)
+      const duration = 10 + Math.random() * 8;
       star.style.animationDuration = `${duration}s`;
       
-      // Delay inicial aleatório para evitar sincronização
-      const initialDelay = Math.random() * duration;
-      star.style.animationDelay = `-${initialDelay}s`;
+      // Delay POSITIVO para evitar piscada inicial (0-5 segundos)
+      const initialDelay = Math.random() * 5;
+      star.style.animationDelay = `${initialDelay}s`;
       
       space.appendChild(star);
     }
@@ -473,114 +470,113 @@
     createStars();
 
     // Dicionário de traduções
-const translations = {
-  pt: {
-    "hero-text": "Ciência de Dados, Automação com Inteligência Artificial para negócios mais eficientes e escaláveis.",
-    "portfolio-btn": "Veja meu Portfólio",
-    "contact-btn": "Fale Comigo",
-    "about-title": "Sobre Mim",
-    "about-text": "Olá! sou <span class='font-semibold'>Tiago Alves</span>, especialista financeiro com habilidades em Ciência de Dados, Automação e Inteligência Artificial. Ajudo empresas e pessoas a extrair valor dos dados, criar soluções inteligentes e automatizar processos para ganhar eficiência e escala.",
-    "services-title": "Serviços",
-    "data-science": "Ciência de Dados",
-    "data-science-desc": "Modelagem preditiva, dashboards, análises estatísticas e suporte à tomada de decisão.",
-    "automation": "Automação R.P.A.",
-    "automation-desc": "Criação de RPA, robôs de integração e fluxos inteligentes que economizam tempo e reduzem erros.",
-    "ai": "Inteligência Artificial",
-    "ai-desc": "Chat com I.A., processamento de linguagem multimodal, visão computacional e modelos customizados para problemas reais.",
-    "finance": "Especialista Financeiro",
-    "finance-desc": "Experiência sólida em finanças e contabilidade, unindo análise financeira com poderosas ferramentas tecnológicas para resultados estratégicos.",
-    "portfolio-title": "Portfólio",
-    "articles-title": "Artigos Publicados",
-    "view-project": "Ver Projeto",
-    "read-article": "Ler Artigo",
-    "ai-portfolio": "Inteligência Artificial",
-    "ai-portfolio-desc": "Soluções usando I.A, que vão desde o atendimento automatizado via WhatsApp até soluções mais elaboradas de acordo com a necessidade da empresa.",
-    "automation-portfolio": "Automação",
-    "automation-portfolio-desc": "Análises especializadas do mercado financeiro; Automações de operações com robô trader auxiliando as melhores decisões para o investidor.",
-    "finance-portfolio": "Finanças e Contabilidade",
-    "finance-portfolio-desc": "Cálculos tributários; Análises de balanços; Auditorias; Controle Orçamentário. Tudo isso, para facilitar a vida do empresário.",
-    "article-1-title": "Assistentes Virtuais",
-    "article-1-desc": "A Dualidade da IA no Mundo dos Negócios",
-    "article-2-title": "Robô Trader",
-    "article-2-desc": "Do zero à lucratividade: como desenvolvi um assistente com automações que analisa mercados, executa ordens e envia alertas 24h por dia.",
-    "article-3-title": "Automação",
-    "article-3-desc": "O papel do RPA na contabilidade moderna.",
-    "cta-title": "Pronto para transformar dados em resultados?",
-    "cta-text": "Entre em contato e vamos conversar sobre como a Ciência de Dados e a IA podem impulsionar seu negócio.",
-    "footer-text": "© 2025 Tiago Alves – Dados, Automação & IA"
-  },
-  en: {
-    "hero-text": "Data Science, Artificial Intelligence Automation for more efficient and scalable businesses.",
-    "portfolio-btn": "View My Portfolio",
-    "contact-btn": "Contact Me",
-    "about-title": "About Me",
-    "about-text": "Hello! I am <span class='font-semibold'>Tiago Alves</span>, a financial specialist with skills in Data Science, Automation, and Artificial Intelligence. I help companies and people extract value from data, create smart solutions, and automate processes to gain efficiency and scale.",
-    "services-title": "Services",
-    "data-science": "Data Science",
-    "data-science-desc": "Predictive modeling, dashboards, statistical analysis, and decision-making support.",
-    "automation": "R.P.A. Automation",
-    "automation-desc": "Creation of RPA, integration bots, and intelligent workflows that save time and reduce errors.",
-    "ai": "Artificial Intelligence",
-    "ai-desc": "AI programming, multimodal language processing, computer vision, and customized models for real-world problems.",
-    "finance": "Financial Specialist",
-    "finance-desc": "Solid experience in finance and accounting, combining financial analysis with powerful technological tools for strategic results.",
-    "portfolio-title": "Portfolio",
-    "articles-title": "Published Articles",
-    "view-project": "View Project",
-    "read-article": "Read Article",
-    "ai-portfolio": "Artificial Intelligence",
-    "ai-portfolio-desc": "Solutions using AI, ranging from automated customer service via WhatsApp to more advanced solutions tailored to business needs.",
-    "automation-portfolio": "Automation",
-    "automation-portfolio-desc": "Specialized financial market analysis; trading bot automations supporting better investor decisions.",
-    "finance-portfolio": "Finance and Accounting",
-    "finance-portfolio-desc": "Tax calculations; Balance sheet analysis; Audits; Budget control. All to make entrepreneurs’ lives easier.",
-    "article-1-title": "Virtual Assistants",
-    "article-1-desc": "The Duality of AI in Business",
-    "article-2-title": "Trading Bot",
-    "article-2-desc": "From scratch to profitability: how I built an automated assistant that analyzes markets, executes orders, and sends alerts 24/7.",
-    "article-3-title": "Automation",
-    "article-3-desc": "The role of RPA in modern accounting.",
-    "cta-title": "Ready to turn data into results?",
-    "cta-text": "Get in touch and let’s talk about how Data Science and AI can boost your business.",
-    "footer-text": "© 2025 Tiago Alves – Data, Automation & AI"
-  },
-  es: {
-    "hero-text": "Ciencia de Datos, Automatización con Inteligencia Artificial para negocios más eficientes y escalables.",
-    "portfolio-btn": "Ver Mi Portafolio",
-    "contact-btn": "Contáctame",
-    "about-title": "Sobre Mí",
-    "about-text": "¡Hola! Soy <span class='font-semibold'>Tiago Alves</span>, especialista financiero con habilidades en Ciencia de Datos, Automatización e Inteligencia Artificial. Ayudo a empresas y personas a extraer valor de los datos, crear soluciones inteligentes y automatizar procesos para ganar eficiencia y escala.",
-    "services-title": "Servicios",
-    "data-science": "Ciencia de Datos",
-    "data-science-desc": "Modelado predictivo, tableros, análisis estadísticos y apoyo a la toma de decisiones.",
-    "automation": "Automatización R.P.A.",
-    "automation-desc": "Creación de RPA, bots de integración y flujos inteligentes que ahorran tiempo y reducen errores.",
-    "ai": "Inteligencia Artificial",
-    "ai-desc": "Programación de IA, procesamiento de lenguaje multimodal, visión por computadora y modelos personalizados para problemas reales.",
-    "finance": "Especialista Financiero",
-    "finance-desc": "Amplia experiencia en finanzas y contabilidad, combinando análisis financiero con potentes herramientas tecnológicas para resultados estratégicos.",
-    "portfolio-title": "Portafolio",
-    "articles-title": "Artículos Publicados",
-    "view-project": "Ver Proyecto",
-    "read-article": "Leer Artículo",
-    "ai-portfolio": "Inteligencia Artificial",
-    "ai-portfolio-desc": "Soluciones con IA, desde atención automatizada por WhatsApp hasta desarrollos avanzados según la necesidad de la empresa.",
-    "automation-portfolio": "Automatización",
-    "automation-portfolio-desc": "Análisis especializados del mercado financiero; automatizaciones de operaciones con bots de trading que apoyan mejores decisiones para el inversionista.",
-    "finance-portfolio": "Finanzas y Contabilidad",
-    "finance-portfolio-desc": "Cálculos tributarios; análisis de balances; auditorías; control presupuestario. Todo para facilitar la vida del empresario.",
-    "article-1-title": "Asistentes Virtuales",
-    "article-1-desc": "La Dualidad de la IA en el Mundo de los Negocios",
-    "article-2-title": "Robot Trader",
-    "article-2-desc": "De cero a la rentabilidad: cómo desarrollé un asistente con automatizaciones que analiza mercados, ejecuta órdenes y envía alertas 24/7.",
-    "article-3-title": "Automatización",
-    "article-3-desc": "El papel del RPA en la contabilidad moderna.",
-    "cta-title": "¿Listo para transformar datos en resultados?",
-    "cta-text": "Contáctame y conversemos sobre cómo la Ciencia de Datos y la IA pueden impulsar tu negocio.",
-    "footer-text": "© 2025 Tiago Alves – Datos, Automatización & IA"
-  }
-};
-
+    const translations = {
+      pt: {
+        "hero-text": "Ciência de Dados, Automação com Inteligência Artificial para negócios mais eficientes e escaláveis.",
+        "portfolio-btn": "Veja meu Portfólio",
+        "contact-btn": "Fale Comigo",
+        "about-title": "Sobre Mim",
+        "about-text": "Olá! sou <span class='font-semibold'>Tiago Alves</span>, especialista financeiro com habilidades em Ciência de Dados, Automação e Inteligência Artificial. Ajudo empresas e pessoas a extrair valor dos dados, criar soluções inteligentes e automatizar processos para ganhar eficiência e escala.",
+        "services-title": "Serviços",
+        "data-science": "Ciência de Dados",
+        "data-science-desc": "Modelagem preditiva, dashboards, análises estatísticas e suporte à tomada de decisão.",
+        "automation": "Automação R.P.A.",
+        "automation-desc": "Criação de RPA, robôs de integração e fluxos inteligentes que economizam tempo e reduzem erros.",
+        "ai": "Inteligência Artificial",
+        "ai-desc": "Chat com I.A., processamento de linguagem multimodal, visão computacional e modelos customizados para problemas reais.",
+        "finance": "Especialista Financeiro",
+        "finance-desc": "Experiência sólida em finanças e contabilidade, unindo análise financeira com poderosas ferramentas tecnológicas para resultados estratégicos.",
+        "portfolio-title": "Portfólio",
+        "articles-title": "Artigos Publicados",
+        "view-project": "Ver Projeto",
+        "read-article": "Ler Artigo",
+        "ai-portfolio": "Inteligência Artificial",
+        "ai-portfolio-desc": "Soluções usando I.A, que vão desde o atendimento automatizado via WhatsApp até soluções mais elaboradas de acordo com a necessidade da empresa.",
+        "automation-portfolio": "Automação",
+        "automation-portfolio-desc": "Análises especializadas do mercado financeiro; Automações de operações com robô trader auxiliando as melhores decisões para o investidor.",
+        "finance-portfolio": "Finanças e Contabilidade",
+        "finance-portfolio-desc": "Cálculos tributários; Análises de balanços; Auditorias; Controle Orçamentário. Tudo isso, para facilitar a vida do empresário.",
+        "article-1-title": "Assistentes Virtuais",
+        "article-1-desc": "A Dualidade da IA no Mundo dos Negócios",
+        "article-2-title": "Robô Trader",
+        "article-2-desc": "Do zero à lucratividade: como desenvolvi um assistente com automações que analisa mercados, executa ordens e envia alertas 24h por dia.",
+        "article-3-title": "Automação",
+        "article-3-desc": "O papel do RPA na contabilidade moderna.",
+        "cta-title": "Pronto para transformar dados em resultados?",
+        "cta-text": "Entre em contato e vamos conversar sobre como a Ciência de Dados e a IA podem impulsionar seu negócio.",
+        "footer-text": "© 2025 Tiago Alves – Dados, Automação & IA"
+      },
+      en: {
+        "hero-text": "Data Science, Artificial Intelligence Automation for more efficient and scalable businesses.",
+        "portfolio-btn": "View My Portfolio",
+        "contact-btn": "Contact Me",
+        "about-title": "About Me",
+        "about-text": "Hello! I am <span class='font-semibold'>Tiago Alves</span>, a financial specialist with skills in Data Science, Automation, and Artificial Intelligence. I help companies and people extract value from data, create smart solutions, and automate processes to gain efficiency and scale.",
+        "services-title": "Services",
+        "data-science": "Data Science",
+        "data-science-desc": "Predictive modeling, dashboards, statistical analysis, and decision-making support.",
+        "automation": "R.P.A. Automation",
+        "automation-desc": "Creation of RPA, integration bots, and intelligent workflows that save time and reduce errors.",
+        "ai": "Artificial Intelligence",
+        "ai-desc": "AI programming, multimodal language processing, computer vision, and customized models for real-world problems.",
+        "finance": "Financial Specialist",
+        "finance-desc": "Solid experience in finance and accounting, combining financial analysis with powerful technological tools for strategic results.",
+        "portfolio-title": "Portfolio",
+        "articles-title": "Published Articles",
+        "view-project": "View Project",
+        "read-article": "Read Article",
+        "ai-portfolio": "Artificial Intelligence",
+        "ai-portfolio-desc": "Solutions using AI, ranging from automated customer service via WhatsApp to more advanced solutions tailored to business needs.",
+        "automation-portfolio": "Automation",
+        "automation-portfolio-desc": "Specialized financial market analysis; trading bot automations supporting better investor decisions.",
+        "finance-portfolio": "Finance and Accounting",
+        "finance-portfolio-desc": "Tax calculations; Balance sheet analysis; Audits; Budget control. All to make entrepreneurs' lives easier.",
+        "article-1-title": "Virtual Assistants",
+        "article-1-desc": "The Duality of AI in Business",
+        "article-2-title": "Trading Bot",
+        "article-2-desc": "From scratch to profitability: how I built an automated assistant that analyzes markets, executes orders, and sends alerts 24/7.",
+        "article-3-title": "Automation",
+        "article-3-desc": "The role of RPA in modern accounting.",
+        "cta-title": "Ready to turn data into results?",
+        "cta-text": "Get in touch and let's talk about how Data Science and AI can boost your business.",
+        "footer-text": "© 2025 Tiago Alves – Data, Automation & AI"
+      },
+      es: {
+        "hero-text": "Ciencia de Datos, Automatización con Inteligencia Artificial para negocios más eficientes y escalables.",
+        "portfolio-btn": "Ver Mi Portafolio",
+        "contact-btn": "Contáctame",
+        "about-title": "Sobre Mí",
+        "about-text": "¡Hola! Soy <span class='font-semibold'>Tiago Alves</span>, especialista financiero con habilidades en Ciencia de Datos, Automatización e Inteligencia Artificial. Ayudo a empresas y personas a extraer valor de los datos, crear soluciones inteligentes y automatizar procesos para ganar eficiencia y escala.",
+        "services-title": "Servicios",
+        "data-science": "Ciencia de Datos",
+        "data-science-desc": "Modelado predictivo, tableros, análisis estadísticos y apoyo a la toma de decisiones.",
+        "automation": "Automatización R.P.A.",
+        "automation-desc": "Creación de RPA, bots de integración y flujos inteligentes que ahorran tiempo y reducen errores.",
+        "ai": "Inteligencia Artificial",
+        "ai-desc": "Programación de IA, procesamiento de lenguaje multimodal, visión por computadora y modelos personalizados para problemas reales.",
+        "finance": "Especialista Financiero",
+        "finance-desc": "Amplia experiencia en finanzas y contabilidad, combinando análisis financiero con potentes herramientas tecnológicas para resultados estratégicos.",
+        "portfolio-title": "Portafolio",
+        "articles-title": "Artículos Publicados",
+        "view-project": "Ver Proyecto",
+        "read-article": "Leer Artículo",
+        "ai-portfolio": "Inteligencia Artificial",
+        "ai-portfolio-desc": "Soluciones con IA, desde atención automatizada por WhatsApp hasta desarrollos avanzados según la necesidad de la empresa.",
+        "automation-portfolio": "Automatización",
+        "automation-portfolio-desc": "Análisis especializados del mercado financiero; automatizaciones de operaciones con bots de trading que apoyan mejores decisiones para el inversionista.",
+        "finance-portfolio": "Finanzas y Contabilidad",
+        "finance-portfolio-desc": "Cálculos tributarios; análisis de balances; auditorías; control presupuestario. Todo para facilitar la vida del empresario.",
+        "article-1-title": "Asistentes Virtuales",
+        "article-1-desc": "La Dualidad de la IA en el Mundo de los Negocios",
+        "article-2-title": "Robot Trader",
+        "article-2-desc": "De cero a la rentabilidad: cómo desarrollé un asistente con automatizaciones que analiza mercados, ejecuta órdenes y envía alertas 24/7.",
+        "article-3-title": "Automatización",
+        "article-3-desc": "El papel del RPA en la contabilidad moderna.",
+        "cta-title": "¿Listo para transformar datos en resultados?",
+        "cta-text": "Contáctame y conversemos sobre cómo la Ciencia de Datos y la IA pueden impulsar tu negocio.",
+        "footer-text": "© 2025 Tiago Alves – Datos, Automatización & IA"
+      }
+    };
 
     // Funcionalidade do seletor de idiomas
     document.addEventListener('DOMContentLoaded', function() {
